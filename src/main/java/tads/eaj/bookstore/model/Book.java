@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,11 +13,13 @@ import javax.persistence.Id;
 @Entity
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String title;
+    String subtitle;
     String author;
     String description;
     String language;
-    String releaseDate;
     Double price;
+    Date release_date;
 }
