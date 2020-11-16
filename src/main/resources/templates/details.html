@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore</title>
+</head>
+<body>
+    <header>
+        <h1>Prateleira de livros</h1>
+        <a href="/">Voltar</a>
+    </header>
+    <main>
+       <section>
+           <ul>
+               <li th:object="${book}">
+                   <div class="book-details">
+                       <h2>
+                           <small th:text="*{title}"></small> <br/>
+                           <small th:text="*{subtitle}"></small>
+                       </h2>
+                       <small th:text="*{author}"></small>
+                       <p th:text="*{#dates.format(release_date, 'dd/MMM/yyyy')}"></p>
+                       <p th:text="*{description}"></p>
+                   </div>
+                   <div class="book_pricing">
+                       <strong class="book_price" th:text="*{'R$ ' + #numbers.formatDecimal(price, 1, 2, 'COMMA')}"></strong>
+                   </div>
+                   <div class="book_links">
+                       <div class="book_edit">
+                           <a th:href="@{/edit/{id}(id=*{id})}" class="btn-edit">Editar</a> &nbsp;
+                           <a th:href="@{/delete/{id}(id=*{id})}" class="btn-delete">Remover</a>
+                       </div>
+                   </div>
+               </li>
+           </ul>
+       </section>
+    </main>
+</body>
+</html>
