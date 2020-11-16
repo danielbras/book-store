@@ -1,4 +1,4 @@
-package tads.eaj.bookstore.reporitory;
+package tads.eaj.bookstore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import tads.eaj.bookstore.model.Book;

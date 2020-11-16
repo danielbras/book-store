@@ -3,7 +3,7 @@ package tads.eaj.bookstore.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tads.eaj.bookstore.model.Book;
-import tads.eaj.bookstore.reporitory.BookRepository;
+import tads.eaj.bookstore.repository.BookRepository;
 
 import java.util.List;
 
