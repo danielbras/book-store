@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore</title>
+</head>
+<body>
+    <header>
+        <h1>Prateleira de livros</h1>
+    </header>
+    <main>
+        <section class="conteiner">
+            <ul class="bookshelf">
+                <li class="card-book" th:each="book : ${book_list}" th:object="${book}">
+                    <div class="book-details">
+                        <h3 class="book_title">
+                            <a th:href="@{/details/{id}(id=*{id})}">
+                                <small th:text="*{title}"></small><br/>
+                                <small th:text="*{subtitle}"></small>
+                            </a>
+                        </h3>
+                        <small th:text="*{author}"></small>
+                    </div>
+                    <div>
+                        <div class="book_pricing">
+                            <strong class="book_price" th:text="*{'R$ ' + #numbers.formatDecimal(price, 1, 2, 'COMMA')}"></strong>
+                        </div>
+                        <div class="book_links">
+                            <a th:href="@{/details/{id}(id=*{id})}" class="btn-details">Mais Detalhes</a> <br/>
+                            <div class="book_edit">
+                                <a th:href="@{/edit/{id}(id=*{id})}" class="btn-edit">Editar</a> &nbsp;
+                                <a th:href="@{/delete/{id}(id=*{id})}" class="btn-delete">Remover</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <div>
+            <a href="/register">Adicionar Livro</a>
+        </div>
+    </main>
+    <footer>
+        <section class="feedback">
+
+        </section>
+    </footer>
+</body>
+</html>
