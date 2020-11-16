@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore</title>
+</head>
+<body>
+    <header>
+        <h1>Adicionar livro</h1>
+        <a href="/">Voltar</a>
+    </header>
+    <main>
+        <div class="form-group">
+            <form action="#" th:action="@{/save}" th:object="${new_book}" method="post">
+                <label for="title">Título</label><br/>
+                <input type="text" id="title" th:field="*{title}" placeholder="Título do livro"/><br/>
+                <label for="subtitle">Subtítulo</label><br/>
+                <input type="text" id="subtitle" th:field="*{subtitle}" placeholder="Subtítulo do livro"/><br/>
+                <label for="author">Autor</label><br/>
+                <input type="text" id="author" th:field="*{author}" placeholder="Nome do autor"/><br/>
+                <label for="description">Descrição</label><br/>
+                <textarea id="description" th:field="*{description}"></textarea><br/>
+                <label for="language">Idioma</label><br/>
+                <input type="text" id="language" th:field="*{language}" placeholder="Idioma do livro"/><br/>
+                <label for="releaseData">Data de lançamento</label><br/>
+                <input type="date" id="releaseData" th:field="*{release_date}"/><br/>
+                <label for="price">Preço</label><br/>
+                <input type="number" id="price" step="0.1" th:field="*{price}" placeholder="Valor em reais"/>
+                <br><br/>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>
