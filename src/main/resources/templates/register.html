@@ -5,33 +5,58 @@
     <title>Bookstore</title>
 </head>
 <body>
-    <header>
-        <h1>Adicionar livro</h1>
-        <a href="/">Voltar</a>
-    </header>
-    <main>
-        <div class="form-group">
-            <form action="#" th:action="@{/save}" th:object="${new_book}" method="post">
-                <label for="title">Título</label><br/>
-                <input type="text" id="title" th:field="*{title}" placeholder="Título do livro"/><br/>
-                <label for="subtitle">Subtítulo</label><br/>
-                <input type="text" id="subtitle" th:field="*{subtitle}" placeholder="Subtítulo do livro"/><br/>
-                <label for="author">Autor</label><br/>
-                <input type="text" id="author" th:field="*{author}" placeholder="Nome do autor"/><br/>
-                <label for="description">Descrição</label><br/>
-                <textarea id="description" th:field="*{description}"></textarea><br/>
-                <label for="language">Idioma</label><br/>
-                <input type="text" id="language" th:field="*{language}" placeholder="Idioma do livro"/><br/>
-                <label for="releaseData">Data de lançamento</label><br/>
-                <input type="date" id="releaseData" th:field="*{release_date}"/><br/>
-                <label for="price">Preço</label><br/>
-                <input type="number" id="price" step="0.1" th:field="*{price}" placeholder="Valor em reais"/>
-                <br><br/>
+<header>
+    <h1>Adicionar livro</h1>
+    <a href="/">Home</a>
+</header>
+<main>
+    <form th:action="@{/save}" th:object="${new_book}" method="post">
 
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
-    </main>
-    <footer></footer>
+        <label for="title">Título</label><br/>
+        <input type="text" id="title" th:field="*{title}" placeholder="Título do livro" required/><br/>
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Message error</p>
+
+        <label for="subtitle">Subtítulo</label><br/>
+        <input type="text" id="subtitle" th:field="*{subtitle}" placeholder="Subtítulo do livro"/><br/>
+
+        <label for="author">Autor</label><br/>
+        <input type="text" id="author" th:field="*{author}" placeholder="Nome do autor" required/><br/>
+        <p th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Message error</p>
+
+        <label for="description">Descrição</label><br/>
+        <textarea id="description" th:field="*{description}"></textarea><br/>
+
+        <label for="language">Idioma</label><br/>
+        <select id="language" name="language">
+            <option>Português</option>
+            <option>Espanhol</option>
+            <option>Inglês</option>
+            <option>Francês</option>
+            <option>Italiano</option>
+            <option>Português (Portugal)</option>
+        </select><br />
+
+        <label for="release_date">Data de lançamento</label><br/>
+        <input type="date" id="release_date" max="" th:field="*{release_date}" required/><br/>
+        <p th:if="${#fields.hasErrors('release_date')}" th:errors="*{release_date}">Message error</p>
+
+        <label for="price">Preço</label><br/>
+        <input type="number" id="price" step="0.1" min="0.0" th:field="*{price}" placeholder="Valor em reais" required/>
+        <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Message error</p>
+
+
+        <br/><br/>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</main>
+<script>
+    const inputDate = document.querySelector("#release_date");
+    const defaultValue = inputDate.getAttributeNode("value");
+    const date = new Date().toISOString().substring(0, 10);
+    defaultValue.nodeValue = date;
+    const max = inputDate.getAttributeNode("max");
+    max.value = date;
+</script>
 </body>
 </html>
