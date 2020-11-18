@@ -1,49 +1,69 @@
-<!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bookstore</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .styled-link {
+            color: black;
+            text-decoration: none;
+        }
+
+        .styled-link:hover {
+            color: #2c8931;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Prateleira de livros</h1>
-    </header>
-    <main>
-        <section class="conteiner">
-            <ul class="bookshelf">
-                <li class="card-book" th:each="book : ${book_list}" th:object="${book}">
-                    <div class="book-details">
-                        <h3 class="book_title">
-                            <a th:href="@{/details/{id}(id=*{id})}">
-                                <small th:text="*{title}"></small><br/>
-                                <small th:text="*{subtitle}"></small>
-                            </a>
-                        </h3>
-                        <small th:text="*{author}"></small>
-                    </div>
-                    <div>
-                        <div class="book_pricing">
-                            <strong class="book_price" th:text="*{'R$ ' + #numbers.formatDecimal(price, 1, 2, 'COMMA')}"></strong>
-                        </div>
-                        <div class="book_links">
-                            <a th:href="@{/details/{id}(id=*{id})}" class="btn-details">Mais Detalhes</a> <br/>
-                            <div class="book_edit">
-                                <a th:href="@{/edit/{id}(id=*{id})}" class="btn-edit">Editar</a> &nbsp;
-                                <a th:href="@{/delete/{id}(id=*{id})}" class="btn-delete">Remover</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </section>
-        <div>
-            <a href="/register">Adicionar Livro</a>
-        </div>
-    </main>
-    <footer>
-        <section class="feedback">
+<header>
+    <ul class="nav nav-fill mt-3 mb-2">
+        <li class="nav-item">
+            <h1 class="navbar-brand">📚 &nbsp;Livraria</h1>
+        </li>
+        <li class="nav-item">
+            <h5 class="align-middle pt-2">➕ &nbsp;<a href="/register" class="styled-link ">Cadastrar novo livro</a></h5>
+        </li>
+    </ul>
+    <hr>
+</header>
+<main>
+    <section th:class="${book_list.size()} >= 4 ? 'container-fluid' : 'container'">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 my-2 py-2" th:each="book : ${book_list}" th:object="${book}">
+                <h4 class="text-center pb-2" th:text="*{id} % 2 == 0 ? '📖' : '📕'"></h4>
+                <h3 class="text-center mb-4">
+                    <a class="styled-link" th:href="@{/details/{id}(id=*{id})}">
+                        <small class="d-inline-block text-capitalize text-truncate" th:text="*{title}"></small><br/>
+                        <small class="d-inline-block text-capitalize text-truncate" th:text="*{subtitle}"></small>
+                    </a>
+                </h3>
+                <p th:text="*{author}"></p>
+                <strong th:class="*{price} == 0 ? 'text-success' : ''"
+                        th:text="*{price} == 0 ? 'R$ Grátis' : *{'R$ ' + #numbers.formatDecimal(price, 1, 2, 'COMMA')}"></strong>
+                <br/><br/>
+                <a th:href="@{/details/{id}(id=*{id})}" role="button" class="btn btn-outline-success btn-block">Mais
+                    Detalhes</a>
+            </div>
 
-        </section>
-    </footer>
+        </div>
+    </section>
+</main>
+<footer class="fixed-bottom mb-0 pb-0">
+    <div class="container">
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-6">
+                <div th:class="${feedbackMessage.id} == 0 ? 'invisible' : 'visible alert alert-success'" role="alert">
+                    Operação realizada com sucesso!
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

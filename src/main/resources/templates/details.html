@@ -1,39 +1,94 @@
-<!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bookstore</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .styled-link {
+            color: black;
+            text-decoration: none;
+        }
+
+        .styled-link:hover {
+            color: #2c8931;
+            text-decoration: none;
+        }
+
+        .styled-link-x {
+            color: darkred;
+            text-decoration: none;
+        }
+
+        .styled-link-x:hover {
+            color: #f11014;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Prateleira de livros</h1>
-        <a href="/">Voltar</a>
-    </header>
-    <main>
-       <section>
-           <ul>
-               <li th:object="${book}">
-                   <div class="book-details">
-                       <h2>
-                           <small th:text="*{title}"></small> <br/>
-                           <small th:text="*{subtitle}"></small>
-                       </h2>
-                       <small th:text="*{author}"></small>
-                       <p th:text="*{#dates.format(release_date, 'dd/MMM/yyyy')}"></p>
-                       <p th:text="*{description}"></p>
-                   </div>
-                   <div class="book_pricing">
-                       <strong class="book_price" th:text="*{'R$ ' + #numbers.formatDecimal(price, 1, 2, 'COMMA')}"></strong>
-                   </div>
-                   <div class="book_links">
-                       <div class="book_edit">
-                           <a th:href="@{/edit/{id}(id=*{id})}" class="btn-edit">Editar</a> &nbsp;
-                           <a th:href="@{/delete/{id}(id=*{id})}" class="btn-delete">Remover</a>
-                       </div>
-                   </div>
-               </li>
-           </ul>
-       </section>
-    </main>
+<header>
+    <ul class="nav nav-fill mt-3 mb-2">
+        <li class="nav-item">
+            <h1 class="navbar-brand align-top">📚 &nbsp;<a href="/" class="styled-link">Livraria</a></h1>
+        </li>
+        <li class="nav-item">
+            <h3 class="pr-5"><a href="/" class="styled-link-x">&times;</a></h3>
+        </li>
+    </ul>
+    <hr>
+</header>
+<main>
+    <div class="container mt-5 pt-5">
+        <div class="row d-flex justify-content-center mb-5">
+            <div class="col-md-6">
+                <h2>Detalhes</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-md-3">
+                <p><b>Título: </b><span th:text="${book.title}"></span></p>
+            </div>
+            <div class="col-md-3">
+                <p><b>Subtítulo: </b><span th:text="${book.subtitle}"></span></p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-3">
+                <p><b>Autor: </b> <span th:text="${book.author}"></span></p>
+            </div>
+            <div class="col-md-3">
+                <p><b>Idioma: </b> <span th:text="${book.language}"></span></p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-3">
+                <p><b>Data de lançamento: </b><span
+                        th:text="${#dates.format(book.release_date, 'dd/MMM/yyyy')}"></span></p>
+            </div>
+            <div class="col-md-3">
+                <p><b>Preço: </b> <span th:text="${'R$ ' + #numbers.formatDecimal(book.price, 1, 2, 'COMMA')}"></span>
+                </p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <p class="mt-3"><b>Descrição: </b> <span th:text="${book.description}"></span></p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-5 pt-5">
+            <div class="col-md-3">
+                <a th:href="@{/edit/{id}(id=${book.id})}" role="button" class="btn btn-info btn-block">Editar</a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/delete/{id}(id=${book.id})}" role="button" class="btn btn-danger btn-block">Deletar</a>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
