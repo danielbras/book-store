@@ -73,7 +73,9 @@ public class BookController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String toDelete(@PathVariable(name = "id") Long id){
+    public String toDelete(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        Book book = service.getById(id);
+        redirectAttributes.addFlashAttribute("feedback", book);
         service.delete(id);
         return "redirect:/";
     }
