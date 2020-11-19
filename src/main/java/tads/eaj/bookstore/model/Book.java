@@ -34,7 +34,6 @@ public class Book {
     @NotNull(message = "O campo não deve estar em branco")
     Double price;
 
-    @NotBlank(message = "O campo não deve estar em branco")
     String subtitle;
 
     Date release_date;
