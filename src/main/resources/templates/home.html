@@ -35,12 +35,12 @@
 <main>
     <section th:class="${book_list.size()} >= 4 ? 'container-fluid' : 'container'">
         <div class="row">
-            <div class="col-sm-6 col-md-4 col-lg-3 my-2 py-2" th:each="book : ${book_list}" th:object="${book}">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-2 py-2 mr-2" th:each="book : ${book_list}" th:object="${book}">
                 <h4 class="text-center pb-2" th:text="*{id} % 2 == 0 ? '📖' : '📕'"></h4>
-                <h3 class="text-center mb-4">
+                <h3 class="text-center mb-5">
                     <a class="styled-link" th:href="@{/details/{id}(id=*{id})}">
-                        <small class="d-inline-block text-capitalize text-truncate" th:text="*{title}"></small><br/>
-                        <small class="d-inline-block text-capitalize text-truncate" th:text="*{subtitle}"></small>
+                        <small class="text-capitalize" th:text="*{title}"></small><br/>
+                        <small class="text-capitalize" th:text="*{subtitle.length()} <= 20 ? *{subtitle} : *{subtitle.substring(0, 20) + '...'}"></small>
                     </a>
                 </h3>
                 <p th:text="*{author}"></p>
@@ -50,7 +50,6 @@
                 <a th:href="@{/details/{id}(id=*{id})}" role="button" class="btn btn-outline-success btn-block">Mais
                     Detalhes</a>
             </div>
-
         </div>
     </section>
 </main>
