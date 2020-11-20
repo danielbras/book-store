@@ -6,7 +6,7 @@
 </p>
 
 <h4 align="center">
-  Projeto em construção 🚧
+  Under constructiono 🚧
 </h4>
 
 <p align="center">
